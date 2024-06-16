@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>{% block title %}{% endblock %} | Trade Net</title>
+
+    <style>
+        /* Optional: Custom styles specific to this page */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Example: Override Tailwind CSS classes */
+        .bg-teal-500 {
+            background-color: #38a169;
+        }
+        .bg-gray-500 {
+            background-color: #4a5568;
+        }
+        .bg-red-500 {
+            background-color: #e53e3e;
+        }
+        .hover\:bg-teal-700:hover {
+            background-color: #2c7a6c;
+        }
+        .hover\:bg-gray-700:hover {
+            background-color: #2d3748;
+        }
+        .hover\:bg-red-700:hover {
+            background-color: #c53030;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 bg-white">
+        <a href="/" class="text-xl font-semibold">Trade Net</a>
+
+        <div class="space-x-6">
+            <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500">New item</a>
+            <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500">Browse</a>
+
+            {% if request.user.is_authenticated %}
+                <span class="text-lg font-semibold">Hello, {{ request.user.username }}!</span>
+                <a href="{% url 'conversation:inbox' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Inbox</a>
+                <a href="{% url 'dashboard:index' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Dashboard</a>
+                <a href="{% url 'core:logout' %}" class="px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Log out</a>
+            {% else %}
+                <a href="{% url 'core:signup' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
+                <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="px-6 py-6">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer class="py-6 px-6 flex justify-between bg-gray-800 text-gray-300">
+        <div class="w-2/3 pr-10">
+            <h3 class="mb-5 font-semibold">About</h3>
+            <p class="text-lg">Trade Net is your platform for connecting with traders globally. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae nisi vitae erat blandit dignissim.</p>
+        </div>
+
+        <div class="w-1/3">
+            <h3 class="mb-5 font-semibold">Menu</h3>
+            <ul class="space-y-2">
+                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">About</a></li>
+                <li><a href="{% url 'core:contact' %}" class="text-lg text-teal-500 hover:text-teal-700">Contact</a></li>
+                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Privacy policy</a></li>
+                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Terms of use</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
